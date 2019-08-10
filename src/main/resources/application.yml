@@ -1,0 +1,9 @@
+logging:
+  level:
+    com:
+      slgerkamp:
+        introductory:
+          spring:
+            boot:
+              websocket:
+                stomp: DEBUG
