@@ -3,20 +3,23 @@ package com.slgerkamp.introductory.spring.boot.websocket.stomp.application.contr
 import com.slgerkamp.introductory.spring.boot.websocket.stomp.application.model.Greeting;
 import com.slgerkamp.introductory.spring.boot.websocket.stomp.application.model.HelloMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
-@Controller
+@RestController
 public class GreetingController {
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    @MessageMapping("/hello")
-    public void greeting(HelloMessage message) throws Exception {
+    @PostMapping("/hello")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void greeting(@RequestBody HelloMessage message) throws Exception {
         Thread.sleep(1000); // simulated delay
         simpMessagingTemplate.convertAndSend(
                 "/topic/greetings",

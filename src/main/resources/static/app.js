@@ -33,7 +33,13 @@ function disconnect() {
 }
 
 function sendName() {
-    stompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val()}));
+    $.ajax({
+      type: "POST",
+      url: "/hello",
+      data: JSON.stringify({'name': $("#name").val()}),
+      contentType: 'application/JSON',
+      dataType: 'JSON'
+    });
 }
 
 function showGreeting(message) {
